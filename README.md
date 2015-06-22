@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 [![Build Status](https://travis-ci.org/rdobson/packer-builder-xenserver?branch=master)](https://travis-ci.org/rdobson/packer-builder-xenserver)
 
 # XenServer packer.io builder
