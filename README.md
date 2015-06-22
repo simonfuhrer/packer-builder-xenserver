@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [![Build Status](https://travis-ci.org/rdobson/packer-builder-xenserver?branch=master)](https://travis-ci.org/rdobson/packer-builder-xenserver)
 
 # XenServer packer.io builder
@@ -101,3 +102,6 @@ packer build centos-6.6.json
 
 For complete documentation on configuration commands, see either [the
 xenserver-iso docs](https://github.com/rdobson/packer-builder-xenserver/blob/master/docs/builders/xenserver-iso.html.markdown) or [the xenserver-xva docs](https://github.com/rdobson/packer-builder-xenserver/blob/master/docs/builders/xenserver-xva.html.markdown).
+=======
+# packer-builder-xenserver
+>>>>>>> 784c8e33bdd7fa908ac0d61c5cb7d30dd0e18035
