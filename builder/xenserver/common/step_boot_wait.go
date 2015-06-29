@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"github.com/mitchellh/multistep"
 	"github.com/mitchellh/packer/packer"
+<<<<<<< HEAD
 	xsclient "github.com/simonfuhrer/go-xenserver-client"
+=======
+	xsclient "github.com/xenserver/go-xenserver-client"
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 )
 
 type StepBootWait struct{}

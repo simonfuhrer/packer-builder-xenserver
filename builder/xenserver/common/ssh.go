@@ -2,11 +2,18 @@ package common
 
 import (
 	"bytes"
+<<<<<<< HEAD
 	gossh "code.google.com/p/go.crypto/ssh"
+=======
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	"fmt"
 	"github.com/mitchellh/multistep"
 	commonssh "github.com/mitchellh/packer/common/ssh"
 	"github.com/mitchellh/packer/communicator/ssh"
+<<<<<<< HEAD
+=======
+	gossh "golang.org/x/crypto/ssh"
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	"io"
 	"log"
 	"net"
@@ -28,6 +35,7 @@ func SSHLocalAddress(state multistep.StateBag) (string, error) {
 	return conn_str, nil
 }
 
+<<<<<<< HEAD
 func SSHConfig(state multistep.StateBag) (*gossh.ClientConfig, error) {
 	config := state.Get("commonconfig").(CommonConfig)
 	auth := []gossh.AuthMethod{
@@ -49,6 +57,40 @@ func SSHConfig(state multistep.StateBag) (*gossh.ClientConfig, error) {
 		User: config.SSHUser,
 		Auth: auth,
 	}, nil
+=======
+func SSHPort(state multistep.StateBag) (int, error) {
+	sshHostPort := state.Get("local_ssh_port").(uint)
+	return int(sshHostPort), nil
+}
+
+func CommHost(state multistep.StateBag) (string, error) {
+	return "127.0.0.1", nil
+}
+
+func SSHConfigFunc(config SSHConfig) func(multistep.StateBag) (*gossh.ClientConfig, error) {
+	return func(state multistep.StateBag) (*gossh.ClientConfig, error) {
+		config := state.Get("commonconfig").(CommonConfig)
+		auth := []gossh.AuthMethod{
+			gossh.Password(config.SSHPassword),
+			gossh.KeyboardInteractive(
+				ssh.PasswordKeyboardInteractive(config.SSHPassword)),
+		}
+
+		if config.SSHKeyPath != "" {
+			signer, err := commonssh.FileSigner(config.SSHKeyPath)
+			if err != nil {
+				return nil, err
+			}
+
+			auth = append(auth, gossh.PublicKeys(signer))
+		}
+
+		return &gossh.ClientConfig{
+			User: config.SSHUser,
+			Auth: auth,
+		}, nil
+	}
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 }
 
 func doExecuteSSHCmd(cmd, target string, config *gossh.ClientConfig) (stdout string, err error) {
@@ -87,11 +129,19 @@ func ExecuteHostSSHCmd(state multistep.StateBag, cmd string) (stdout string, err
 }
 
 func ExecuteGuestSSHCmd(state multistep.StateBag, cmd string) (stdout string, err error) {
+<<<<<<< HEAD
+=======
+	config := state.Get("commonconfig").(CommonConfig)
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	localAddress, err := SSHLocalAddress(state)
 	if err != nil {
 		return
 	}
+<<<<<<< HEAD
 	sshConfig, err := SSHConfig(state)
+=======
+	sshConfig, err := SSHConfigFunc(config.SSHConfig)(state)
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	if err != nil {
 		return
 	}

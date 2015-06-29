@@ -8,9 +8,18 @@ import (
 
 	"github.com/mitchellh/multistep"
 	"github.com/mitchellh/packer/common"
+<<<<<<< HEAD
 	"github.com/mitchellh/packer/packer"
 	xscommon "github.com/simonfuhrer/packer-builder-xenserver/builder/xenserver/common"
 	xsclient "github.com/simonfuhrer/go-xenserver-client"
+=======
+	"github.com/mitchellh/packer/helper/communicator"
+	hconfig "github.com/mitchellh/packer/helper/config"
+	"github.com/mitchellh/packer/packer"
+	"github.com/mitchellh/packer/template/interpolate"
+	xscommon "github.com/rdobson/packer-builder-xenserver/builder/xenserver/common"
+	xsclient "github.com/xenserver/go-xenserver-client"
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 )
 
 type config struct {
@@ -22,7 +31,11 @@ type config struct {
 
 	PlatformArgs map[string]string `mapstructure:"platform_args"`
 
+<<<<<<< HEAD
 	tpl *packer.ConfigTemplate
+=======
+	ctx interpolate.Context
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 }
 
 type Builder struct {
@@ -32,6 +45,7 @@ type Builder struct {
 
 func (self *Builder) Prepare(raws ...interface{}) (params []string, retErr error) {
 
+<<<<<<< HEAD
 	md, err := common.DecodeConfig(&self.config, raws...)
 	if err != nil {
 		return nil, err
@@ -46,6 +60,25 @@ func (self *Builder) Prepare(raws ...interface{}) (params []string, retErr error
 	errs := common.CheckUnusedConfig(md)
 	errs = packer.MultiErrorAppend(
 		errs, self.config.CommonConfig.Prepare(self.config.tpl, &self.config.PackerConfig)...)
+=======
+	var errs *packer.MultiError
+
+	err := hconfig.Decode(&self.config, &hconfig.DecodeOpts{
+		Interpolate: true,
+		InterpolateFilter: &interpolate.RenderFilter{
+			Exclude: []string{
+				"boot_command",
+			},
+		},
+	}, raws...)
+
+	if err != nil {
+		packer.MultiErrorAppend(errs, err)
+	}
+
+	errs = packer.MultiErrorAppend(
+		errs, self.config.CommonConfig.Prepare(&self.config.ctx, &self.config.PackerConfig)...)
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 
 	// Set default values
 
@@ -64,6 +97,7 @@ func (self *Builder) Prepare(raws ...interface{}) (params []string, retErr error
 		self.config.PlatformArgs = pargs
 	}
 
+<<<<<<< HEAD
 	// Template substitution
 
 	templates := map[string]*string{
@@ -79,6 +113,8 @@ func (self *Builder) Prepare(raws ...interface{}) (params []string, retErr error
 		}
 	}
 
+=======
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	// Validation
 
 	if self.config.SourcePath == "" {
@@ -162,7 +198,11 @@ func (self *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (pa
 		},
 		new(xscommon.StepBootWait),
 		&xscommon.StepTypeBootCommand{
+<<<<<<< HEAD
 			Tpl: self.config.tpl,
+=======
+			Ctx: self.config.ctx,
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 		},
 		&xscommon.StepWaitForIP{
 			Chan:    httpReqChan,
@@ -175,10 +215,18 @@ func (self *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (pa
 			HostPortMax: self.config.HostPortMax,
 			ResultKey:   "local_ssh_port",
 		},
+<<<<<<< HEAD
 		&common.StepConnectSSH{
 			SSHAddress:     xscommon.SSHLocalAddress,
 			SSHConfig:      xscommon.SSHConfig,
 			SSHWaitTimeout: self.config.SSHWaitTimeout,
+=======
+		&communicator.StepConnect{
+			Config:    &self.config.SSHConfig.Comm,
+			Host:      xscommon.CommHost,
+			SSHConfig: xscommon.SSHConfigFunc(self.config.CommonConfig.SSHConfig),
+			SSHPort:   xscommon.SSHPort,
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 		},
 		new(common.StepProvision),
 		new(xscommon.StepShutdown),

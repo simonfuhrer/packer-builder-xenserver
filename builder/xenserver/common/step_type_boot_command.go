@@ -7,6 +7,10 @@ import (
 	"github.com/mitchellh/go-vnc"
 	"github.com/mitchellh/multistep"
 	"github.com/mitchellh/packer/packer"
+<<<<<<< HEAD
+=======
+	"github.com/mitchellh/packer/template/interpolate"
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	"log"
 	"net"
 	"strings"
@@ -24,7 +28,11 @@ type bootCommandTemplateData struct {
 }
 
 type StepTypeBootCommand struct {
+<<<<<<< HEAD
 	Tpl *packer.ConfigTemplate
+=======
+	Ctx interpolate.Context
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 }
 
 func (self *StepTypeBootCommand) Run(state multistep.StateBag) multistep.StepAction {
@@ -78,7 +86,11 @@ func (self *StepTypeBootCommand) Run(state multistep.StateBag) multistep.StepAct
 	localIp := strings.Split(envVar, " ")[0]
 	ui.Message(fmt.Sprintf("Found local IP: %s", localIp))
 
+<<<<<<< HEAD
 	tplData := &bootCommandTemplateData{
+=======
+	self.Ctx.Data = &bootCommandTemplateData{
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 		config.VMName,
 		localIp,
 		http_port,
@@ -87,7 +99,11 @@ func (self *StepTypeBootCommand) Run(state multistep.StateBag) multistep.StepAct
 	ui.Say("Typing boot commands over VNC...")
 	for _, command := range config.BootCommand {
 
+<<<<<<< HEAD
 		command, err := self.Tpl.Process(command, tplData)
+=======
+		command, err := interpolate.Render(command, &self.Ctx)
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 		if err != nil {
 			err := fmt.Errorf("Error preparing boot command: %s", err)
 			state.Put("error", err)

@@ -9,8 +9,13 @@ import (
 	"github.com/mitchellh/multistep"
 	"github.com/mitchellh/packer/common"
 	commonssh "github.com/mitchellh/packer/common/ssh"
+<<<<<<< HEAD
 	"github.com/mitchellh/packer/packer"
 	xsclient "github.com/simonfuhrer/go-xenserver-client"
+=======
+	"github.com/mitchellh/packer/template/interpolate"
+	xsclient "github.com/xenserver/go-xenserver-client"
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 )
 
 type CommonConfig struct {
@@ -41,10 +46,19 @@ type CommonConfig struct {
 
 	//	SSHHostPortMin    uint   `mapstructure:"ssh_host_port_min"`
 	//	SSHHostPortMax    uint   `mapstructure:"ssh_host_port_max"`
+<<<<<<< HEAD
 	SSHKeyPath        string `mapstructure:"ssh_key_path"`
 	SSHPassword       string `mapstructure:"ssh_password"`
 	SSHPort           uint   `mapstructure:"ssh_port"`
 	SSHUser           string `mapstructure:"ssh_username"`
+=======
+	SSHKeyPath  string `mapstructure:"ssh_key_path"`
+	SSHPassword string `mapstructure:"ssh_password"`
+	SSHPort     uint   `mapstructure:"ssh_port"`
+	SSHUser     string `mapstructure:"ssh_username"`
+	SSHConfig   `mapstructure:",squash"`
+
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	RawSSHWaitTimeout string `mapstructure:"ssh_wait_timeout"`
 	SSHWaitTimeout    time.Duration
 
@@ -54,8 +68,14 @@ type CommonConfig struct {
 	IPGetter  string `mapstructure:"ip_getter"`
 }
 
+<<<<<<< HEAD
 func (c *CommonConfig) Prepare(t *packer.ConfigTemplate, pc *common.PackerConfig) []error {
 	var err error
+=======
+func (c *CommonConfig) Prepare(ctx *interpolate.Context, pc *common.PackerConfig) []error {
+	var err error
+	var errs []error
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 
 	// Set default values
 
@@ -129,6 +149,7 @@ func (c *CommonConfig) Prepare(t *packer.ConfigTemplate, pc *common.PackerConfig
 		c.IPGetter = "auto"
 	}
 
+<<<<<<< HEAD
 	// Template substitution
 
 	templates := map[string]*string{
@@ -163,6 +184,8 @@ func (c *CommonConfig) Prepare(t *packer.ConfigTemplate, pc *common.PackerConfig
 		}
 	}
 
+=======
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	// Validation
 
 	if c.Username == "" {
@@ -190,6 +213,7 @@ func (c *CommonConfig) Prepare(t *packer.ConfigTemplate, pc *common.PackerConfig
 		errs = append(errs, fmt.Errorf("Failed to parse boot_wait: %s", err))
 	}
 
+<<<<<<< HEAD
 	for i, command := range c.BootCommand {
 		if err := t.Validate(command); err != nil {
 			errs = append(errs,
@@ -197,6 +221,8 @@ func (c *CommonConfig) Prepare(t *packer.ConfigTemplate, pc *common.PackerConfig
 		}
 	}
 
+=======
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	if c.SSHKeyPath != "" {
 		if _, err := os.Stat(c.SSHKeyPath); err != nil {
 			errs = append(errs, fmt.Errorf("ssh_key_path is invalid: %s", err))
@@ -259,6 +285,7 @@ func (c CommonConfig) ShouldKeepVM(state multistep.StateBag) bool {
 	}
 }
 
+<<<<<<< HEAD
 func (config CommonConfig) GetSR(client xsclient.XenAPIClient, strtype string) (*xsclient.SR, error) {
         if strtype == "iso" {
 		b, err := client.GetSRs()
@@ -274,6 +301,9 @@ func (config CommonConfig) GetSR(client xsclient.XenAPIClient, strtype string) (
           	}
         }
 
+=======
+func (config CommonConfig) GetSR(client xsclient.XenAPIClient) (*xsclient.SR, error) {
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	if config.SrName == "" {
 		// Find the default SR
 		return client.GetDefaultSR()

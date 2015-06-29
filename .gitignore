@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 *.swp
 *~
 bin
 pkg
+<<<<<<< HEAD
 =======
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
 *.o
@@ -29,3 +33,5 @@ _testmain.go
 *.test
 *.prof
 >>>>>>> 784c8e33bdd7fa908ac0d61c5cb7d30dd0e18035
+=======
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc

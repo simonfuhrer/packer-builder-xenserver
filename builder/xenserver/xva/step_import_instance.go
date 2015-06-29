@@ -6,8 +6,13 @@ import (
 
 	"github.com/mitchellh/multistep"
 	"github.com/mitchellh/packer/packer"
+<<<<<<< HEAD
 	xscommon "github.com/simonfuhrer/packer-builder-xenserver/builder/xenserver/common"
 	xsclient "github.com/simonfuhrer/go-xenserver-client"
+=======
+	xscommon "github.com/rdobson/packer-builder-xenserver/builder/xenserver/common"
+	xsclient "github.com/xenserver/go-xenserver-client"
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 )
 
 type stepImportInstance struct {
@@ -24,7 +29,11 @@ func (self *stepImportInstance) Run(state multistep.StateBag) multistep.StepActi
 	ui.Say("Step: Import Instance")
 
 	// find the SR
+<<<<<<< HEAD
 	sr, err := config.GetSR(client,"")
+=======
+	sr, err := config.GetSR(client)
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	if err != nil {
 		ui.Error(fmt.Sprintf("Unable to get SR: %s", err.Error()))
 		return multistep.ActionHalt

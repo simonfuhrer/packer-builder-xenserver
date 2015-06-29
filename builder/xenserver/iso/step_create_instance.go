@@ -5,7 +5,11 @@ import (
 
 	"github.com/mitchellh/multistep"
 	"github.com/mitchellh/packer/packer"
+<<<<<<< HEAD
 	xsclient "github.com/simonfuhrer/go-xenserver-client"
+=======
+	xsclient "github.com/xenserver/go-xenserver-client"
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 )
 
 type stepCreateInstance struct {
@@ -70,13 +74,21 @@ func (self *stepCreateInstance) Run(state multistep.StateBag) multistep.StepActi
 
 	// Create VDI for the instance
 
+<<<<<<< HEAD
 	sr, err := config.GetSR(client,"")
+=======
+	sr, err := config.GetSR(client)
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	if err != nil {
 		ui.Error(fmt.Sprintf("Unable to get SR: %s", err.Error()))
 		return multistep.ActionHalt
 	}
 
+<<<<<<< HEAD
 	vdi, err := sr.CreateVdi(config.VMName, int64(config.DiskSize*1024*1024))
+=======
+	vdi, err := sr.CreateVdi("Packer-disk", int64(config.DiskSize*1024*1024))
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	if err != nil {
 		ui.Error(fmt.Sprintf("Unable to create packer disk VDI: %s", err.Error()))
 		return multistep.ActionHalt

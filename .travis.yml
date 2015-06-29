@@ -1,7 +1,11 @@
 language: go
 go:
   # Test with the first and the latest go release - to ensure compatibility
+<<<<<<< HEAD
   - 1
+=======
+  - 1.2
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
   - release
 script:
   - gofmtresult=$(gofmt -s -l .); if [[ -n $gofmtresult ]]; then echo -e "Please run \"gofmt -s -w .\" before committing for the below:\n$gofmtresult"; false; fi

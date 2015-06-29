@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 Mozilla Public License Version 2.0
 ==================================
 
@@ -372,6 +375,7 @@ Exhibit B - "Incompatible With Secondary Licenses" Notice
 
   This Source Code Form is "Incompatible With Secondary Licenses", as
   defined by the Mozilla Public License, v. 2.0.
+<<<<<<< HEAD
 =======
 The MIT License (MIT)
 
@@ -396,3 +400,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 >>>>>>> 784c8e33bdd7fa908ac0d61c5cb7d30dd0e18035
+=======
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc

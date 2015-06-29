@@ -4,7 +4,11 @@ import (
 	"fmt"
 	"github.com/mitchellh/multistep"
 	"github.com/mitchellh/packer/packer"
+<<<<<<< HEAD
 	xsclient "github.com/simonfuhrer/go-xenserver-client"
+=======
+	xsclient "github.com/xenserver/go-xenserver-client"
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	"log"
 	"os"
 	"time"
@@ -29,6 +33,7 @@ func (self *StepUploadVdi) Run(state multistep.StateBag) multistep.StepAction {
 	}
 
 	ui.Say(fmt.Sprintf("Step: Upload VDI '%s'", vdiName))
+<<<<<<< HEAD
         vv := "false"
         if vdiName == "Packer-floppy-disk" {
                         ui.Say(fmt.Sprintf("Step: Upload FLOPPY '%s'", vdiName))
@@ -36,6 +41,11 @@ func (self *StepUploadVdi) Run(state multistep.StateBag) multistep.StepAction {
         }
 	// Create VDI for the image
 	sr, err := config.GetSR(client,vv)
+=======
+
+	// Create VDI for the image
+	sr, err := config.GetSR(client)
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	if err != nil {
 		ui.Error(fmt.Sprintf("Unable to get SR: %s", err.Error()))
 		return multistep.ActionHalt
@@ -79,7 +89,11 @@ func (self *StepUploadVdi) Run(state multistep.StateBag) multistep.StepAction {
 		ui.Error(fmt.Sprintf("Unable to upload VDI: %s", err.Error()))
 		return multistep.ActionHalt
 	}
+<<<<<<< HEAD
         //time.Sleep(60 * time.Second)
+=======
+
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 	return multistep.ActionContinue
 }
 

@@ -7,7 +7,11 @@ import (
 	"github.com/mitchellh/multistep"
 	"github.com/mitchellh/packer/packer"
 	"github.com/nilshell/xmlrpc"
+<<<<<<< HEAD
 	xsclient "github.com/simonfuhrer/go-xenserver-client"
+=======
+	xsclient "github.com/xenserver/go-xenserver-client"
+>>>>>>> aa0bbcae25c2db138b23c8f008f5948721a18cfc
 )
 
 type StepWaitForIP struct {
