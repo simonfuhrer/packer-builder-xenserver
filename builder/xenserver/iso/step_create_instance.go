@@ -70,7 +70,7 @@ func (self *stepCreateInstance) Run(state multistep.StateBag) multistep.StepActi
 
 	// Create VDI for the instance
 
-	sr, err := config.GetSR(client)
+	sr, err := config.GetSR(client,"")
 	if err != nil {
 		ui.Error(fmt.Sprintf("Unable to get SR: %s", err.Error()))
 		return multistep.ActionHalt

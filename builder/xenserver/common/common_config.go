@@ -259,7 +259,21 @@ func (c CommonConfig) ShouldKeepVM(state multistep.StateBag) bool {
 	}
 }
 
-func (config CommonConfig) GetSR(client xsclient.XenAPIClient) (*xsclient.SR, error) {
+func (config CommonConfig) GetSR(client xsclient.XenAPIClient, strtype string) (*xsclient.SR, error) {
+        if strtype == "iso" {
+		b, err := client.GetSRs()
+		if err != nil {
+			return nil, err
+		}
+
+		for _,el := range b {
+			vv,_ := el.GetRecord()
+                	if vv["name_label"] == "NFS ISO library" {
+                  		return el, nil
+                	}
+          	}
+        }
+
 	if config.SrName == "" {
 		// Find the default SR
 		return client.GetDefaultSR()

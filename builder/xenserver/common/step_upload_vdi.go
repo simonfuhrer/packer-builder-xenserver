@@ -29,9 +29,13 @@ func (self *StepUploadVdi) Run(state multistep.StateBag) multistep.StepAction {
 	}
 
 	ui.Say(fmt.Sprintf("Step: Upload VDI '%s'", vdiName))
-
+        vv := "false"
+        if vdiName == "Packer-floppy-disk" {
+                        ui.Say(fmt.Sprintf("Step: Upload FLOPPY '%s'", vdiName))
+        	vv = "iso"
+        }
 	// Create VDI for the image
-	sr, err := config.GetSR(client)
+	sr, err := config.GetSR(client,vv)
 	if err != nil {
 		ui.Error(fmt.Sprintf("Unable to get SR: %s", err.Error()))
 		return multistep.ActionHalt
@@ -75,7 +79,7 @@ func (self *StepUploadVdi) Run(state multistep.StateBag) multistep.StepAction {
 		ui.Error(fmt.Sprintf("Unable to upload VDI: %s", err.Error()))
 		return multistep.ActionHalt
 	}
-
+        //time.Sleep(60 * time.Second)
 	return multistep.ActionContinue
 }
 
